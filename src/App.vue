@@ -2,8 +2,9 @@
   <div>
     <!-- 头部组件 -->
     <Header />
+    <router-view></router-view>
     <!-- 足部组件 -->
-    <Footer />
+    <Footer v-if="!$route.meta.isHide"></Footer>
   </div>
 </template>
 
