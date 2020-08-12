@@ -67,9 +67,9 @@ export default {
         // query: {
         //   keyword: this.searchData,
         // },
-        params:{
-          keyword:this.searchData
-        }
+        params: {
+          keyword: this.searchData || undefined,
+        },
       };
       this.$router.push(local);
     },
