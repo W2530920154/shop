@@ -1,9 +1,11 @@
 <template>
   <div>
-    query传参:{{ $route.query.keyword }} params传参:{{
+    <!-- query传参:{{ $route.query.keyword }} params传参:{{
       $route.params.keyword
     }}
-    简化传参：{{ keyword }}
+    简化传参：{{ keyword }} -->
+
+    <TypeNav />
   </div>
 </template>
 
