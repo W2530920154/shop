@@ -71,6 +71,9 @@ export default {
           keyword: this.searchData || undefined,
         },
       };
+      if (this.$route.query) {
+        local.query = this.$route.query;
+      }
       this.$router.push(local);
     },
   },

@@ -11,7 +11,7 @@ export default [
   {
     //当使用params传参时，需要添加 :传递参数的名称
     //为了防止params参数可传可不传，解决方案为：添加？
-    path: "/search:keyword?",
+    path: "/search/:keyword?",
     component: Search,
     name: "Search",
     //props三种方式

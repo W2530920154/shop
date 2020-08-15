@@ -6,7 +6,6 @@ const state = {
   categoryList: [],
 };
 const actions = {
-  // actions一般不处理异步调用代码，所以不推荐使用此方法
   // getCategotyList({commit}){
   //   apiCategory().then((req)=>{
   //     commit("GETAPICATEGORY",req.data)

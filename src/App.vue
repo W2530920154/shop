@@ -18,6 +18,14 @@ export default {
     Header,
     Footer,
   },
+  mounted() {
+    this.getCategotyList();
+  },
+  methods: {
+    getCategotyList() {
+      this.$store.dispatch("getCategotyList");
+    },
+  },
 };
 </script>
 

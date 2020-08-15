@@ -1,3 +1,5 @@
+const { mapState } = require("vuex");
+
 module.exports = {
   lintOnSave: false,
   devServer: {
