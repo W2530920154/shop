@@ -3,10 +3,14 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" id="mySwiper" ref="banner">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="banner in bannerList"
+              :key="banner.id"
+            >
+              <img :src="banner.imgUrl" />
             </div>
             <!-- <div class="swiper-slide">
               <img src="./images/banner2.jpg" />
@@ -100,8 +104,41 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
+  mounted() {
+    this.$store.dispatch("getBannerList");
+  },
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
+  watch: {
+    bannerList: {
+      handler(newValue, oldValue) {
+        this.$nextTick(() => {
+          new Swiper(this.$refs.banner, {
+            // 可以, 只会匹配, 当前组件中的对应元素
+            // direction: 'vertical', // 垂直切换选项   默认是水平轮播
+            loop: true, // 循环
+            // 分页器
+            pagination: {
+              el: ".swiper-pagination",
+            },
+
+            // 前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        });
+      },
+    },
+  },
 };
 </script>
 
