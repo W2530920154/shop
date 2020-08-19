@@ -9,10 +9,15 @@ Vue.config.productionTip = false;
 import "swiper/css/swiper.css";
 //导航组件多个页面需要使用，所以定义为全局组件
 import TypeNav from "@/components/TypeNav";
+import Pagination from '@/components/Pagination'
 // import "@/api";
 //注册组件
 Vue.component("TypeNav", TypeNav);
+Vue.component("Pagination",Pagination)
 new Vue({
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
   //使用路由
   router,
   //使用vuex

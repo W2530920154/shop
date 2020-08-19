@@ -1,5 +1,11 @@
 import Ajax from "@/ajax/Ajax";
 import MockAjax from "@/ajax/MockAjax";
+export const apiItem = (skuId) => {
+  return Ajax({
+    url: `/item/${skuId}`,
+    method: "get",
+  });
+};
 export const apiCategory = () => {
   return Ajax({
     url: "/product/getBaseCategoryList",
