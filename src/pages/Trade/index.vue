@@ -143,10 +143,10 @@ export default {
 
       const result = await this.$API.apiSubmitOrder(tradeNo, trade);
       if (result.code === 200) {
-        alert("创建订单成功，自动跳转到支付页面");
+        this.$message.success("创建订单成功，自动跳转到支付页面");
         this.$router.push(`/pay/${result.data}`);
       } else {
-        alert(result.message);
+        this.$message.success(result.message);
       }
     },
   },

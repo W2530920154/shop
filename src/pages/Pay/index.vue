@@ -99,7 +99,7 @@ export default {
   data() {
     return {
       payInfo: {},
-      status: 0,
+      status: "",
     };
   },
   mounted() {
@@ -117,7 +117,7 @@ export default {
       try {
         let codeUrl = await QRCode.toDataURL(this.payInfo.codeUrl);
         this.$alert(`<img src=${codeUrl} />`, "请使用微信扫码支付", {
-          confirmButtonText: "确定",
+          //confirmButtonText: "确定",
           showClose: false,
           dangerouslyUseHTMLString: true,
           showCancelButton: true,
@@ -141,16 +141,17 @@ export default {
               // this.$router.push("/paysuccess");
             } else if (action === "cancel") {
               this.$message.warning("请联系尚硅谷前台小姐姐处理");
-              clearInterval(this.timer); //clearInterval清除定时器，停止给定编号的定时器，并没有清空存储编号的变量
-              this.timer = null;
+              clearInterval(this.times); //clearInterval清除定时器，停止给定编号的定时器，并没有清空存储编号的变量
+              this.times = null;
               done(); //让我们手动关闭消息盒子
             }
           },
         })
           .then(() => {})
           .catch(() => {});
-        if (!times) {
-          let times = setInterval(async () => {
+        if (!this.times) {
+          this.times = setInterval(async () => {
+            console.log(1);
             let result = await this.$API.apiQueryPayStatus(
               this.payInfo.orderId
             );
