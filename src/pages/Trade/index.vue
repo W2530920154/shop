@@ -64,6 +64,7 @@
         <textarea
           placeholder="建议留言前先与商家沟通确认"
           class="remarks-cont"
+          v-model="message"
         ></textarea>
       </div>
       <div class="line"></div>
@@ -104,7 +105,7 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <a href="javascript:;" class="subBtn" @click="toPay">提交订单</a>
     </div>
   </div>
 </template>
@@ -113,6 +114,11 @@
 import { mapState } from "vuex";
 export default {
   name: "Trade",
+  data() {
+    return {
+      message: "",
+    };
+  },
   mounted() {
     this.getTradeInfo();
   },
@@ -124,15 +130,34 @@ export default {
       this.userAddressList.forEach((item) => (item.isDefault = "0"));
       address.isDefault = "1";
     },
+    async toPay() {
+      let tradeNo = this.tradeInfo.tradeNo;
+      let trade = {
+        consignee: this.defultAddress.consignee,
+        consigneeTel: this.defultAddress.phoneNum,
+        deliveryAddress: this.defultAddress.userAddress,
+        paymentWay: "ONLINE",
+        orderComment: this.message,
+        orderDetailList: this.detailArrayList,
+      };
+
+      const result = await this.$API.apiSubmitOrder(tradeNo, trade);
+      if (result.code === 200) {
+        alert("创建订单成功，自动跳转到支付页面");
+        this.$router.push(`/pay/${result.data}`);
+      } else {
+        alert(result.message);
+      }
+    },
   },
   computed: {
     ...mapState({
       detailArrayList: (state) => state.trade.tradeInfo.detailArrayList || [],
       userAddressList: (state) => state.trade.tradeInfo.userAddressList || [],
-      tradeInfo: (state) => state.trade.tradeInfo,
+      tradeInfo: (state) => state.trade.tradeInfo || {},
     }),
     defultAddress() {
-      return this.userAddressList.find((item) => item.isDefault === "1");
+      return this.userAddressList.find((item) => item.isDefault === "1") || {};
     },
   },
 };

@@ -1,7 +1,14 @@
 import Ajax from "@/ajax/Ajax";
 import MockAjax from "@/ajax/MockAjax";
 
-export const apiSubmitOrder = (orderId) => {
+//payment/weixin/queryPayStatus/{orderId}
+export const apiQueryPayStatus = (orderId) => {
+  return Ajax({
+    url: `payment/weixin/queryPayStatus/${orderId}`,
+  });
+};
+//payment/weixin/createNative/{orderId}
+export const apiPayMent = (orderId) => {
   return Ajax({
     url: `/payment/weixin/createNative/${orderId}`,
     method: "get",
