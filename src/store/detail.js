@@ -14,11 +14,20 @@ const actions = {
   },
 };
 const mutations = {
-    GETITEMLIST(state, data) {
+  GETITEMLIST(state, data) {
     state.items = data;
   },
 };
 const getters = {
+  categoryView(state) {
+    return state.items.categoryView || {};
+  },
+  skuInfo(state) {
+    return state.items.skuInfo || {};
+  },
+  spuSaleAttrList(state) {
+    return state.items.spuSaleAttrList || {};
+  },
 };
 
 export default {

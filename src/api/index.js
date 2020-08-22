@@ -1,5 +1,69 @@
 import Ajax from "@/ajax/Ajax";
 import MockAjax from "@/ajax/MockAjax";
+
+export const apiSubmitOrder = (orderId) => {
+  return Ajax({
+    url: `/payment/weixin/createNative/${orderId}`,
+    method: "get",
+  });
+};
+export const apiSubmitOrder = (tradeNo, trade) => {
+  return Ajax({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method: "post",
+    data: trade,
+  });
+};
+export const apiTrade = () => {
+  return Ajax({
+    url: "/order/auth/trade",
+    method: "get",
+  });
+};
+export const apiLoginOut = () => {
+  return Ajax({
+    url: "/user/passport/logout",
+    method: "get",
+  });
+};
+export const apiLogin = (user) => {
+  return Ajax({
+    url: "/user/passport/login",
+    method: "post",
+    data: user,
+  });
+};
+export const apiRegister = (user) => {
+  return Ajax({
+    url: "/user/passport/register",
+    method: "post",
+    data: user,
+  });
+};
+export const apiDelCart = (skuId) => {
+  return Ajax({
+    url: `/cart/deleteCart/${skuId}`,
+    method: "delete",
+  });
+};
+export const apiUpdateChenck = (skuId, isChecked) => {
+  return Ajax({
+    url: `/cart/checkCart/${skuId}/${isChecked}`,
+    method: "get",
+  });
+};
+export const apiGetShopCartList = () => {
+  return Ajax({
+    url: "/cart/cartList",
+    method: "get",
+  });
+};
+export const apiAddShopCart = (skuId, skuNum) => {
+  return Ajax({
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+    method: "post",
+  });
+};
 export const apiItem = (skuId) => {
   return Ajax({
     url: `/item/${skuId}`,

@@ -4,7 +4,9 @@
       上一页
     </button>
     <button v-if="startEnd.start > 1" @click="changePageNum(1)">1</button>
-    <button v-if="startEnd.start >= 2">···</button>
+    <button v-if="startEnd.start >= 2" @click="changePageNum(pageNo - pageNum)">
+      ···
+    </button>
 
     <button
       v-for="pages in startEnd.end"
@@ -16,7 +18,12 @@
       {{ pages }}
     </button>
 
-    <button v-if="startEnd.end < totalPages - 1">···</button>
+    <button
+      v-if="startEnd.end < totalPages - 1"
+      @click="changePageNum(pageNo + pageNum)"
+    >
+      ···
+    </button>
     <button v-if="startEnd.end < totalPages" @click="changePageNum(totalPages)">
       {{ totalPages }}
     </button>
@@ -26,7 +33,7 @@
     >
       下一页
     </button>
-
+    
     <button style="margin-left: 30px">共 {{ total }} 条</button>
   </div>
 </template>

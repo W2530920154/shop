@@ -157,7 +157,7 @@ export default {
         keyword: "",
         order: "1:desc",
         pageNo: 1,
-        pageSize: 3,
+        pageSize: 2,
         props: [],
         trademark: "",
       },

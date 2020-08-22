@@ -8,7 +8,7 @@
 // 		返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
 
 // 		统一处理请求错误, 具体请求也可以选择处理或不处理
-
+import store from "@/store";
 import axios from "axios";
 import NProgress from "nprogress";
 //需要再次导入css文件
@@ -20,6 +20,13 @@ const instance = axios.create({
 });
 //请求拦截
 instance.interceptors.request.use(function(config) {
+  let userTempId = store.state.user.userTempId;
+  config.headers.userTempId = userTempId;
+  //给请求头添加token标识
+  let token = store.state.user.user.token;
+  if (token) {
+    config.headers.token = token;
+  }
   NProgress.start();
   // 返回config
   return config;

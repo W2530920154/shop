@@ -16,9 +16,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom :imageList="imageList" />
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList :imageList="imageList" />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -81,6 +81,7 @@
                   changepirce="0"
                   v-for="value in attr.spuSaleAttrValueList"
                   :key="value.id"
+                  :class="{ active: value.isChecked === '1' }"
                 >
                   {{ value.saleAttrValueName }}
                 </dd>
@@ -88,12 +89,17 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum" />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum <= 1 ? 1 : skuNum--"
+                  >-</a
+                >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addshopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -346,25 +352,44 @@
 <script>
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Detail",
-
+  data() {
+    return {
+      skuNum: 1,
+    };
+  },
   components: {
     ImageList,
     Zoom,
   },
   mounted() {
+    console.log(this);
     this.$store.dispatch("getItemList", this.$route.params.skuId);
     //console.log("emit" + this.$emit);
   },
   computed: {
-    ...mapState({
-      categoryView: (state) => state.detail.items.categoryView,
-      skuInfo: (state) => state.detail.items.skuInfo,
-      spuSaleAttrList: (state) => state.detail.items.spuSaleAttrList,
-    }),
+    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
+    imageList() {
+      return this.skuInfo.skuImageList || [];
+    },
+  },
+  methods: {
+    async addshopCart() {
+      try {
+        await this.$store.dispatch("addShopCart", {
+          skuId: this.skuInfo.id,
+          skuNum: this.skuNum,
+        });
+        alert("添加成功，自动跳转到购物车页面");
+        sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(this.skuInfo));
+        this.$router.push("/addcartsuccess?skuNum=" + this.skuNum);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
   },
 };
 </script>
