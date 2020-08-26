@@ -99,7 +99,7 @@
                 >
               </div>
               <div class="add">
-                <a href="javascript:" @click="addshopCart">加入购物车</a>
+                <a href="javascript:;" @click="addshopCart">加入购物车</a>
               </div>
             </div>
           </div>

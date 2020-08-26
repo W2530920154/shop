@@ -95,7 +95,7 @@
                 <div class="list-wrap">
                   <div class="p-img">
                     <router-link :to="`/detail/${goods.id}`">
-                      <img :src="goods.defaultImg"
+                      <img v-lazy="goods.defaultImg"
                     /></router-link>
                   </div>
                   <div class="price">
@@ -117,7 +117,7 @@
                   </div>
                   <div class="operate">
                     <a
-                      href="success-cart.html"
+                      href="javascript:;"
                       target="_blank"
                       class="sui-btn btn-bordered btn-danger"
                       >加入购物车</a
@@ -130,7 +130,7 @@
               </li>
             </ul>
           </div>
-          <Pagination
+          <MyPagination
             :total="total"
             :pageNo="searchParams.pageNo"
             :pageSize="searchParams.pageSize"

@@ -95,7 +95,12 @@ export default {
           message: "恭喜你，登陆成功",
           type: "success",
         });
-        this.$router.push("/");
+        let redirect = this.$route.query.redirect;
+        if (redirect) {
+          this.$router.push(redirect);
+        } else {
+          this.$router.push("/");
+        }
       } catch (error) {
         this.$message({
           showClose: true,

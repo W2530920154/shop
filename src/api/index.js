@@ -1,6 +1,13 @@
 import Ajax from "@/ajax/Ajax";
 import MockAjax from "@/ajax/MockAjax";
 
+// /order/auth/{page}/{limit}
+export const apiGetOrderList = (page,limit) => {
+  return Ajax({
+    url: `/order/auth/${page}/${limit}`,
+  });
+};
+
 //payment/weixin/queryPayStatus/{orderId}
 export const apiQueryPayStatus = (orderId) => {
   return Ajax({
